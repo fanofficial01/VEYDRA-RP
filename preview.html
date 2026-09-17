@@ -1,0 +1,3166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VEYDRA — Official Website</title>
+
+<meta name="description"
+content="Website resmi VEYDRA — Sebuah kota, sebuah cerita, sebuah perjalanan.">
+
+<style>
+
+/* =====================================================
+   VEYDRA OFFICIAL WEBSITE
+   Single File HTML
+===================================================== */
+
+:root {
+    --bg: #070908;
+    --bg2: #0c100e;
+    --card: #111713;
+    --card2: #151c17;
+
+    --green: #79ff9a;
+    --green-dark: #43d968;
+
+    --white: #ffffff;
+    --text: #dce2de;
+    --muted: #8c968f;
+
+    --border: rgba(255,255,255,.08);
+    --shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+body.menu-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #29332c;
+    border-radius: 20px;
+}
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #070908;
+
+    transition: opacity .6s, visibility .6s;
+}
+
+.loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 8px;
+
+    animation: loaderPulse 1.5s infinite;
+}
+
+.loader-logo span {
+    color: var(--green);
+}
+
+.loader-line {
+    width: 160px;
+    height: 2px;
+
+    background: #202820;
+
+    margin: 25px auto 0;
+
+    overflow: hidden;
+}
+
+.loader-line::after {
+    content: "";
+
+    display: block;
+
+    width: 50%;
+    height: 100%;
+
+    background: var(--green);
+
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(300%);
+    }
+}
+
+@keyframes loaderPulse {
+    50% {
+        opacity: .5;
+    }
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 75px;
+
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 1000;
+
+    background: rgba(7,9,8,.65);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+
+    transition: .3s;
+}
+
+.navbar.scrolled {
+    background: rgba(7,9,8,.92);
+    box-shadow: 0 10px 40px rgba(0,0,0,.2);
+}
+
+.logo {
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+.logo span {
+    color: var(--green);
+}
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 27px;
+
+    list-style: none;
+}
+
+.nav-links a {
+    color: #b8c0ba;
+
+    font-size: 13px;
+
+    transition: .25s;
+}
+
+.nav-links a:hover {
+    color: var(--green);
+}
+
+.nav-join {
+    padding: 10px 17px;
+
+    border: 1px solid rgba(121,255,154,.3);
+
+    border-radius: 7px;
+
+    color: var(--green) !important;
+}
+
+.nav-join:hover {
+    background: var(--green);
+    color: #071009 !important;
+}
+
+.menu-button {
+    display: none;
+
+    border: 0;
+    background: transparent;
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 140px 8% 100px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 75% 35%,
+            rgba(121,255,154,.13),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(121,255,154,.06),
+            transparent 28%
+        ),
+        var(--bg);
+}
+
+.hero-grid {
+    position: absolute;
+    inset: 0;
+
+    opacity: .08;
+
+    background-image:
+        linear-gradient(#fff 1px, transparent 1px),
+        linear-gradient(90deg, #fff 1px, transparent 1px);
+
+    background-size: 70px 70px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent
+    );
+}
+
+.hero-glow {
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    border: 1px solid rgba(121,255,154,.08);
+
+    border-radius: 50%;
+
+    right: -180px;
+    top: 110px;
+
+    box-shadow:
+        0 0 100px rgba(121,255,154,.04);
+}
+
+.hero-glow::before,
+.hero-glow::after {
+    content: "";
+
+    position: absolute;
+
+    border: 1px solid rgba(121,255,154,.06);
+
+    border-radius: 50%;
+}
+
+.hero-glow::before {
+    inset: 50px;
+}
+
+.hero-glow::after {
+    inset: 110px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+
+    max-width: 900px;
+}
+
+.hero-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(121,255,154,.3);
+
+    border-radius: 100px;
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 2.5px;
+
+    margin-bottom: 27px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 12px var(--green);
+
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .3;
+    }
+}
+
+.hero h1 {
+    font-size: clamp(75px, 14vw, 175px);
+
+    line-height: .78;
+
+    letter-spacing: -9px;
+
+    margin-bottom: 38px;
+}
+
+.hero h1 span {
+    color: var(--green);
+}
+
+.hero-subtitle {
+    color: #d2d9d4;
+
+    font-size: clamp(20px, 3vw, 31px);
+
+    font-weight: 700;
+
+    margin-bottom: 17px;
+}
+
+.hero-description {
+    max-width: 650px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    margin-bottom: 35px;
+}
+
+.buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 47px;
+
+    padding: 0 23px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition: .3s;
+
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: #061008;
+
+    background: var(--green);
+
+    box-shadow:
+        0 10px 30px rgba(121,255,154,.08);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 40px rgba(121,255,154,.2);
+}
+
+.btn-secondary {
+    border: 1px solid #303a32;
+
+    color: white;
+
+    background: rgba(255,255,255,.02);
+}
+
+.btn-secondary:hover {
+    color: var(--green);
+
+    border-color: rgba(121,255,154,.45);
+
+    transform: translateY(-3px);
+}
+
+.scroll-indicator {
+    position: absolute;
+
+    bottom: 35px;
+    left: 8%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #69736c;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.scroll-line {
+    width: 45px;
+    height: 1px;
+
+    background: #4d584f;
+}
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    background: #0b0f0d;
+}
+
+.stat {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border-right: 1px solid var(--border);
+}
+
+.stat:last-child {
+    border-right: none;
+}
+
+.stat-number {
+    font-size: 30px;
+
+    font-weight: 900;
+
+    color: var(--green);
+
+    margin-bottom: 7px;
+}
+
+.stat-label {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+/* =====================================================
+   GLOBAL SECTIONS
+===================================================== */
+
+section {
+    padding: 110px 8%;
+}
+
+.section-label {
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 11px;
+}
+
+.section-title {
+    font-size: clamp(34px, 5vw, 52px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+.section-description {
+    max-width: 650px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    margin-top: 15px;
+}
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about {
+    background: var(--bg2);
+}
+
+.about-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr .85fr;
+
+    gap: 70px;
+
+    align-items: center;
+
+    margin-top: 55px;
+}
+
+.about-text p {
+    color: #aeb7b0;
+
+    line-height: 1.9;
+
+    margin-bottom: 20px;
+}
+
+.quote-box {
+    padding: 25px 28px;
+
+    background: var(--card);
+
+    border-left: 3px solid var(--green);
+
+    border-radius: 0 10px 10px 0;
+
+    color: #dfe6e0;
+
+    line-height: 1.7;
+}
+
+.quote-box strong {
+    color: var(--green);
+}
+
+.city-display {
+    min-height: 380px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #121a15,
+            #080b09
+        );
+
+    box-shadow: var(--shadow);
+}
+
+.city-display::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    border: 1px solid rgba(121,255,154,.13);
+
+    border-radius: 50%;
+}
+
+.city-display::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border: 1px solid rgba(121,255,154,.09);
+
+    border-radius: 50%;
+}
+
+.city-name {
+    position: relative;
+    z-index: 2;
+
+    font-size: 60px;
+
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    text-shadow:
+        0 0 45px rgba(121,255,154,.18);
+}
+
+.city-name span {
+    color: var(--green);
+}
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 17px;
+
+    margin-top: 55px;
+}
+
+.feature-card {
+    position: relative;
+
+    padding: 30px;
+
+    min-height: 210px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    transition: .35s;
+}
+
+.feature-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -45px;
+    bottom: -45px;
+
+    background: rgba(121,255,154,.08);
+
+    filter: blur(25px);
+
+    border-radius: 50%;
+}
+
+.feature-card:hover {
+    transform: translateY(-7px);
+
+    border-color: rgba(121,255,154,.35);
+
+    box-shadow: var(--shadow);
+}
+
+.feature-icon {
+    font-size: 28px;
+
+    margin-bottom: 22px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.75;
+}
+
+/* =====================================================
+   CITY SERVICES
+===================================================== */
+
+.services {
+    background: var(--bg2);
+}
+
+.service-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-top: 55px;
+}
+
+.service {
+    padding: 28px 22px;
+
+    background: #101512;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    transition: .3s;
+}
+
+.service:hover {
+    border-color: rgba(121,255,154,.3);
+}
+
+.service-number {
+    color: #59635b;
+
+    font-size: 11px;
+
+    margin-bottom: 20px;
+}
+
+.service-icon {
+    font-size: 25px;
+
+    margin-bottom: 17px;
+}
+
+.service h3 {
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+.service p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+/* =====================================================
+   MAP
+===================================================== */
+
+.map-section {
+    position: relative;
+
+    overflow: hidden;
+}
+
+.map-box {
+    min-height: 480px;
+
+    margin-top: 55px;
+
+    position: relative;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111812,
+            #080b09
+        );
+}
+
+.map-grid {
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .15;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            #708074 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            #708074 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    transform: perspective(500px) rotateX(45deg) scale(1.4);
+
+    transform-origin: center;
+}
+
+.map-road {
+    position: absolute;
+
+    background: #29332c;
+
+    border: 1px solid #465249;
+}
+
+.road-1 {
+    width: 80%;
+    height: 35px;
+
+    top: 48%;
+    left: 10%;
+
+    transform: rotate(-13deg);
+}
+
+.road-2 {
+    width: 75%;
+    height: 30px;
+
+    top: 40%;
+    left: 15%;
+
+    transform: rotate(42deg);
+}
+
+.road-3 {
+    width: 55%;
+    height: 24px;
+
+    top: 65%;
+    left: 23%;
+
+    transform: rotate(-35deg);
+}
+
+.map-point {
+    position: absolute;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    background: rgba(8,10,9,.9);
+
+    border: 1px solid rgba(121,255,154,.3);
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
+}
+
+.point-1 {
+    top: 28%;
+    left: 30%;
+}
+
+.point-2 {
+    top: 55%;
+    left: 58%;
+}
+
+.point-3 {
+    top: 32%;
+    left: 65%;
+}
+
+.point-4 {
+    top: 70%;
+    left: 36%;
+}
+
+.map-center {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+}
+
+.map-center h3 {
+    font-size: 25px;
+
+    letter-spacing: 4px;
+}
+
+.map-center p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 7px;
+}
+
+/* =====================================================
+   NEWS
+===================================================== */
+
+.news {
+    background: var(--bg2);
+}
+
+.news-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 55px;
+}
+
+.news-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(121,255,154,.3);
+}
+
+.news-image {
+    height: 180px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 48px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(121,255,154,.12),
+            transparent 55%
+        ),
+        #101611;
+}
+
+.news-content {
+    padding: 25px;
+}
+
+.news-category {
+    color: var(--green);
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.news-content h3 {
+    font-size: 19px;
+
+    margin: 11px 0;
+}
+
+.news-content p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+.news-link {
+    display: inline-block;
+
+    color: var(--green);
+
+    font-size: 12px;
+
+    margin-top: 18px;
+}
+
+/* =====================================================
+   EVENT
+===================================================== */
+
+.event {
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(121,255,154,.09),
+            transparent 45%
+        ),
+        var(--bg);
+}
+
+.event-content {
+    max-width: 850px;
+
+    margin: 50px auto 0;
+
+    padding: 45px 30px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    background: rgba(17,23,19,.7);
+
+    box-shadow: var(--shadow);
+}
+
+.event-tag {
+    display: inline-block;
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 15px;
+}
+
+.event-content h3 {
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+.event-content p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.countdown {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+
+    max-width: 600px;
+
+    margin: 35px auto;
+}
+
+.time-box {
+    padding: 20px 10px;
+
+    background: #0c110e;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+}
+
+.time-number {
+    color: var(--green);
+
+    font-size: 32px;
+
+    font-weight: 900;
+}
+
+.time-label {
+    color: #687269;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    margin-top: 6px;
+}
+
+/* =====================================================
+   RULES
+===================================================== */
+
+.rules {
+    background: var(--bg2);
+}
+
+.rules-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+
+    margin-top: 55px;
+}
+
+.rule {
+    padding: 25px;
+
+    display: flex;
+
+    gap: 20px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+.rule-number {
+    color: var(--green);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    min-width: 45px;
+}
+
+.rule h3 {
+    font-size: 15px;
+
+    margin-bottom: 7px;
+}
+
+.rule p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+.faq-container {
+    max-width: 850px;
+
+    margin-top: 50px;
+}
+
+details {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    margin-bottom: 11px;
+
+    padding: 20px 23px;
+
+    transition: .3s;
+}
+
+details:hover {
+    border-color: rgba(121,255,154,.2);
+}
+
+summary {
+    cursor: pointer;
+
+    list-style: none;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::after {
+    content: "+";
+
+    float: right;
+
+    color: var(--green);
+
+    font-size: 20px;
+}
+
+details[open] summary::after {
+    content: "−";
+}
+
+details p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    margin-top: 15px;
+}
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.cta {
+    text-align: center;
+
+    padding: 130px 8%;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(121,255,154,.13),
+            transparent 50%
+        ),
+        #070908;
+}
+
+.cta h2 {
+    font-size: clamp(43px, 7vw, 78px);
+
+    letter-spacing: -4px;
+
+    margin-bottom: 17px;
+}
+
+.cta h2 span {
+    color: var(--green);
+}
+
+.cta p {
+    color: var(--muted);
+
+    margin-bottom: 32px;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 45px 8% 25px;
+
+    border-top: 1px solid var(--border);
+
+    background: #060807;
+}
+
+.footer-main {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr repeat(3, 1fr);
+
+    gap: 50px;
+
+    padding-bottom: 40px;
+}
+
+.footer-brand .logo {
+    display: inline-block;
+
+    margin-bottom: 15px;
+}
+
+.footer-brand p {
+    color: #69736c;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    max-width: 300px;
+}
+
+.footer-column h4 {
+    font-size: 12px;
+
+    margin-bottom: 17px;
+
+    color: white;
+}
+
+.footer-column a {
+    display: block;
+
+    color: #687169;
+
+    font-size: 12px;
+
+    margin-bottom: 10px;
+
+    transition: .2s;
+}
+
+.footer-column a:hover {
+    color: var(--green);
+}
+
+.footer-bottom {
+    padding-top: 22px;
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    color: #4f5952;
+
+    font-size: 11px;
+}
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+.back-top {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(121,255,154,.3);
+
+    background: rgba(12,16,14,.9);
+
+    color: var(--green);
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(15px);
+
+    transition: .3s;
+
+    z-index: 500;
+}
+
+.back-top.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+.back-top:hover {
+    background: var(--green);
+
+    color: #071009;
+}
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 950px) {
+
+    .nav-links {
+        position: fixed;
+
+        top: 75px;
+        right: -100%;
+
+        width: 280px;
+
+        height: calc(100vh - 75px);
+
+        padding: 35px 25px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+
+        background: rgba(8,10,9,.98);
+
+        border-left: 1px solid var(--border);
+
+        transition: .35s;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 650px) {
+
+    .navbar {
+        padding: 0 6%;
+    }
+
+    .hero {
+        padding: 130px 6% 100px;
+    }
+
+    .hero h1 {
+        font-size: 72px;
+
+        letter-spacing: -5px;
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    section {
+        padding: 80px 6%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .stat:nth-child(2) {
+        border-right: none;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .city-display {
+        min-height: 280px;
+    }
+
+    .city-name {
+        font-size: 39px;
+        letter-spacing: 5px;
+    }
+
+    .map-box {
+        min-height: 350px;
+    }
+
+    .map-point {
+        font-size: 8px;
+        padding: 6px 8px;
+    }
+
+    .countdown {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-content">
+
+        <div class="loader-logo">
+            VEY<span>DRA</span>
+        </div>
+
+        <div class="loader-line"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar" id="navbar">
+
+    <a href="#home" class="logo">
+        VEY<span>DRA</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+
+        <li>
+            <a href="#home">Beranda</a>
+        </li>
+
+        <li>
+            <a href="#about">Tentang</a>
+        </li>
+
+        <li>
+            <a href="#rp">VEYDRA RP</a>
+        </li>
+
+        <li>
+            <a href="#map">Kota</a>
+        </li>
+
+        <li>
+            <a href="#news">News</a>
+        </li>
+
+        <li>
+            <a href="#rules">Peraturan</a>
+        </li>
+
+        <li>
+            <a href="#contact" class="nav-join">
+                Join VEYDRA
+            </a>
+        </li>
+
+    </ul>
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Menu">
+
+        ☰
+
+    </button>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-glow"></div>
+
+    <div class="hero-content reveal">
+
+        <div class="hero-badge">
+
+            <span class="status-dot"></span>
+
+            OFFICIAL VEYDRA WEBSITE
+
+        </div>
+
+        <h1>
+            VEY<span>DRA</span>
+        </h1>
+
+        <div class="hero-subtitle">
+            Sebuah kota. Sebuah cerita.
+        </div>
+
+        <p class="hero-description">
+
+            Selamat datang di VEYDRA —
+            sebuah kota yang dibangun dari
+            kreativitas, kehidupan, dan cerita
+            yang dibuat bersama.
+
+        </p>
+
+        <div class="buttons">
+
+            <a href="#rp" class="btn btn-primary">
+                Jelajahi VEYDRA
+            </a>
+
+            <!-- GANTI LINK DISCORD -->
+
+            <a
+                href="https://discord.com"
+                target="_blank"
+                class="btn btn-secondary">
+
+                Join Discord
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="scroll-indicator">
+
+        <span class="scroll-line"></span>
+
+        SCROLL TO EXPLORE
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<div class="stats reveal">
+
+    <div class="stat">
+
+        <div class="stat-number">
+            VEYDRA
+        </div>
+
+        <div class="stat-label">
+            OFFICIAL CITY
+        </div>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-number">
+            RP
+        </div>
+
+        <div class="stat-label">
+            ROLEPLAY EXPERIENCE
+        </div>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-number">
+            ∞
+        </div>
+
+        <div class="stat-label">
+            STORIES TO CREATE
+        </div>
+
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-number">
+            24/7
+        </div>
+
+        <div class="stat-label">
+            COMMUNITY
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="about" id="about">
+
+    <div class="section-label reveal">
+        ABOUT VEYDRA
+    </div>
+
+    <h2 class="section-title reveal">
+        Lebih dari sekadar kota.
+    </h2>
+
+    <p class="section-description reveal">
+
+        VEYDRA dirancang sebagai tempat untuk
+        membangun kehidupan, bertemu orang baru,
+        dan menciptakan cerita yang berbeda.
+
+    </p>
+
+
+    <div class="about-grid">
+
+        <div class="about-text reveal">
+
+            <p>
+                VEYDRA adalah sebuah kota berbasis
+                komunitas yang menghadirkan pengalaman
+                roleplay, kreativitas, pembangunan,
+                dan berbagai aktivitas.
+            </p>
+
+            <p>
+                Setiap warga memiliki kebebasan untuk
+                menjalani perjalanan mereka sendiri.
+                Tidak ada satu cerita yang harus sama.
+            </p>
+
+            <div class="quote-box">
+
+                <strong>
+                    "Setiap warga punya cerita."
+                </strong>
+
+                <br><br>
+
+                Di VEYDRA, cerita tersebut dimulai
+                dari langkah pertama.
+
+            </div>
+
+        </div>
+
+
+        <div class="city-display reveal">
+
+            <div class="city-name">
+
+                VEY<span>DRA</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RP FEATURES
+===================================================== -->
+
+<section id="rp">
+
+    <div class="section-label reveal">
+        VEYDRA RP
+    </div>
+
+    <h2 class="section-title reveal">
+        Build Your Story.
+    </h2>
+
+    <p class="section-description reveal">
+
+        Rasakan kehidupan kota dengan berbagai
+        aktivitas dan sistem yang dirancang
+        untuk pengalaman roleplay.
+
+    </p>
+
+
+    <div class="feature-grid">
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">🏙️</div>
+
+            <h3>Kehidupan Kota</h3>
+
+            <p>
+                Jalani kehidupan sebagai warga
+                dan temukan berbagai aktivitas
+                di seluruh kota.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">💼</div>
+
+            <h3>Pekerjaan</h3>
+
+            <p>
+                Bangun perjalanan melalui berbagai
+                pekerjaan dan aktivitas ekonomi.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">🚗</div>
+
+            <h3>Transportasi</h3>
+
+            <p>
+                Jelajahi berbagai wilayah kota
+                menggunakan kendaraan.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">🏠</div>
+
+            <h3>Tempat Tinggal</h3>
+
+            <p>
+                Temukan tempat untuk tinggal
+                dan membangun kehidupan.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">🎉</div>
+
+            <h3>Event Kota</h3>
+
+            <p>
+                Ikuti event komunitas dan berbagai
+                kegiatan yang berlangsung di kota.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card reveal">
+
+            <div class="feature-icon">🎬</div>
+
+            <h3>Community</h3>
+
+            <p>
+                Bertemu warga lain dan menciptakan
+                cerita bersama.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CITY SERVICES
+===================================================== -->
+
+<section class="services">
+
+    <div class="section-label reveal">
+        CITY LIFE
+    </div>
+
+    <h2 class="section-title reveal">
+        Semua ada di VEYDRA.
+    </h2>
+
+    <p class="section-description reveal">
+
+        Berbagai bagian kehidupan kota
+        dapat menjadi bagian dari ceritamu.
+
+    </p>
+
+
+    <div class="service-grid">
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                01
+            </div>
+
+            <div class="service-icon">
+                🏛️
+            </div>
+
+            <h3>
+                Pemerintahan
+            </h3>
+
+            <p>
+                Sistem pemerintahan dan layanan
+                publik kota.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                02
+            </div>
+
+            <div class="service-icon">
+                🏦
+            </div>
+
+            <h3>
+                Ekonomi
+            </h3>
+
+            <p>
+                Perdagangan, pekerjaan,
+                dan aktivitas ekonomi.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                03
+            </div>
+
+            <div class="service-icon">
+                🚘
+            </div>
+
+            <h3>
+                Transportasi
+            </h3>
+
+            <p>
+                Mobilitas warga di seluruh
+                wilayah kota.
+            </p>
+
+        </div>
+
+
+        <div class="service reveal">
+
+            <div class="service-number">
+                04
+            </div>
+
+            <div class="service-icon">
+                📡
+            </div>
+
+            <h3>
+                Informasi
+            </h3>
+
+            <p>
+                Berita dan informasi terbaru
+                mengenai VEYDRA.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP
+===================================================== -->
+
+<section id="map">
+
+    <div class="section-label reveal">
+        EXPLORE THE CITY
+    </div>
+
+    <h2 class="section-title reveal">
+        Peta VEYDRA.
+    </h2>
+
+    <p class="section-description reveal">
+
+        Jelajahi wilayah kota dan temukan
+        berbagai tempat di VEYDRA.
+
+    </p>
+
+
+    <div class="map-box reveal">
+
+        <div class="map-grid"></div>
+
+        <div class="map-road road-1"></div>
+
+        <div class="map-road road-2"></div>
+
+        <div class="map-road road-3"></div>
+
+
+        <div class="map-point point-1">
+            CENTRAL
+        </div>
+
+        <div class="map-point point-2">
+            RESIDENTIAL
+        </div>
+
+        <div class="map-point point-3">
+            BUSINESS
+        </div>
+
+        <div class="map-point point-4">
+            INDUSTRIAL
+        </div>
+
+
+        <div class="map-center">
+
+            <h3>
+                VEYDRA
+            </h3>
+
+            <p>
+                CITY MAP
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
+<section class="news" id="news">
+
+    <div class="section-label reveal">
+        VEYDRA NEWS
+    </div>
+
+    <h2 class="section-title reveal">
+        Berita & Update.
+    </h2>
+
+    <p class="section-description reveal">
+
+        Informasi terbaru mengenai perkembangan
+        dan kegiatan VEYDRA.
+
+    </p>
+
+
+    <div class="news-grid">
+
+
+        <article class="news-card reveal">
+
+            <div class="news-image">
+                🚧
+            </div>
+
+            <div class="news-content">
+
+                <div class="news-category">
+                    DEVELOPMENT
+                </div>
+
+                <h3>
+                    VEYDRA sedang dipersiapkan
+                </h3>
+
+                <p>
+                    Berbagai persiapan dan pengembangan
+                    sedang dilakukan sebelum kota resmi hadir.
+                </p>
+
+                <a href="#" class="news-link">
+                    Read More →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="news-card reveal">
+
+            <div class="news-image">
+                🎮
+            </div>
+
+            <div class="news-content">
+
+                <div class="news-category">
+                    VEYDRA RP
+                </div>
+
+                <h3>
+                    Sistem Roleplay
+                </h3>
+
+                <p>
+                    Pengembangan sistem roleplay terus
+                    dilakukan untuk memberikan pengalaman
+                    kota yang menarik.
+                </p>
+
+                <a href="#" class="news-link">
+                    Read More →
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <article class="news-card reveal">
+
+            <div class="news-image">
+                📢
+            </div>
+
+            <div class="news-content">
+
+                <div class="news-category">
+                    ANNOUNCEMENT
+                </div>
+
+                <h3>
+                    Nantikan informasi terbaru
+                </h3>
+
+                <p>
+                    Informasi mengenai pembukaan dan
+                    perkembangan VEYDRA akan diumumkan
+                    melalui kanal resmi.
+                </p>
+
+                <a href="#" class="news-link">
+                    Read More →
+                </a>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EVENT COUNTDOWN
+===================================================== -->
+
+<section class="event">
+
+    <div class="section-label reveal">
+        NEXT EVENT
+    </div>
+
+    <h2 class="section-title reveal">
+        Sesuatu yang baru akan datang.
+    </h2>
+
+
+    <div class="event-content reveal">
+
+        <div class="event-tag">
+            COMING SOON
+        </div>
+
+        <h3>
+            VEYDRA OFFICIAL OPENING
+        </h3>
+
+        <p>
+
+            Bersiap untuk menjadi bagian
+            dari langkah pertama VEYDRA.
+
+        </p>
+
+
+        <div class="countdown">
+
+            <div class="time-box">
+
+                <div
+                    class="time-number"
+                    id="days">
+                    00
+                </div>
+
+                <div class="time-label">
+                    DAYS
+                </div>
+
+            </div>
+
+
+            <div class="time-box">
+
+                <div
+                    class="time-number"
+                    id="hours">
+                    00
+                </div>
+
+                <div class="time-label">
+                    HOURS
+                </div>
+
+            </div>
+
+
+            <div class="time-box">
+
+                <div
+                    class="time-number"
+                    id="minutes">
+                    00
+                </div>
+
+                <div class="time-label">
+                    MINUTES
+                </div>
+
+            </div>
+
+
+            <div class="time-box">
+
+                <div
+                    class="time-number"
+                    id="seconds">
+                    00
+                </div>
+
+                <div class="time-label">
+                    SECONDS
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="#contact"
+            class="btn btn-primary">
+
+            Get Ready
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RULES
+===================================================== -->
+
+<section class="rules" id="rules">
+
+    <div class="section-label reveal">
+        CITY RULES
+    </div>
+
+    <h2 class="section-title reveal">
+        Peraturan VEYDRA.
+    </h2>
+
+    <p class="section-description reveal">
+
+        Bersama-sama menjaga VEYDRA
+        agar tetap menjadi tempat yang nyaman.
+
+    </p>
+
+
+    <div class="rules-grid">
+
+
+        <div class="rule reveal">
+
+            <div class="rule-number">
+                01
+            </div>
+
+            <div>
+
+                <h3>
+                    Saling Menghormati
+                </h3>
+
+                <p>
+                    Hormati seluruh warga dan
+                    komunitas VEYDRA.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rule reveal">
+
+            <div class="rule-number">
+                02
+            </div>
+
+            <div>
+
+                <h3>
+                    Dilarang Mengganggu
+                </h3>
+
+                <p>
+                    Jangan sengaja mengganggu
+                    pengalaman warga lain.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rule reveal">
+
+            <div class="rule-number">
+                03
+            </div>
+
+            <div>
+
+                <h3>
+                    Gunakan Sistem dengan Bijak
+                </h3>
+
+                <p>
+                    Gunakan fitur dan sistem kota
+                    sesuai dengan ketentuan.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="rule reveal">
+
+            <div class="rule-number">
+                04
+            </div>
+
+            <div>
+
+                <h3>
+                    Ikuti Peraturan
+                </h3>
+
+                <p>
+                    Peraturan dapat diperbarui
+                    mengikuti perkembangan VEYDRA.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section id="faq">
+
+    <div class="section-label reveal">
+        FAQ
+    </div>
+
+    <h2 class="section-title reveal">
+        Pertanyaan yang sering ditanyakan.
+    </h2>
+
+
+    <div class="faq-container">
+
+
+        <details class="reveal">
+
+            <summary>
+                Apa itu VEYDRA?
+            </summary>
+
+            <p>
+                VEYDRA adalah sebuah kota berbasis
+                komunitas yang menghadirkan pengalaman
+                roleplay, kreativitas, dan kehidupan kota.
+            </p>
+
+        </details>
+
+
+        <details class="reveal">
+
+            <summary>
+                Apa itu VEYDRA RP?
+            </summary>
+
+            <p>
+                VEYDRA RP adalah pengalaman roleplay
+                yang memungkinkan pemain menjalani
+                kehidupan sebagai bagian dari kota VEYDRA.
+            </p>
+
+        </details>
+
+
+        <details class="reveal">
+
+            <summary>
+                Kapan VEYDRA dibuka?
+            </summary>
+
+            <p>
+                Jadwal resmi pembukaan akan diumumkan
+                melalui kanal resmi VEYDRA.
+            </p>
+
+        </details>
+
+
+        <details class="reveal">
+
+            <summary>
+                Bagaimana cara bergabung?
+            </summary>
+
+            <p>
+                Informasi mengenai cara bergabung akan
+                tersedia ketika VEYDRA resmi dibuka.
+            </p>
+
+        </details>
+
+
+        <details class="reveal">
+
+            <summary>
+                Di mana mendapatkan berita terbaru?
+            </summary>
+
+            <p>
+                Ikuti kanal resmi VEYDRA untuk mendapatkan
+                informasi dan pengumuman terbaru.
+            </p>
+
+        </details>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta" id="contact">
+
+    <div class="reveal">
+
+        <div class="section-label">
+            JOIN THE CITY
+        </div>
+
+        <h2>
+            Welcome to <span>VEYDRA.</span>
+        </h2>
+
+        <p>
+            Sebuah kota. Sebuah cerita.
+            Sebuah perjalanan.
+        </p>
+
+
+        <div
+            class="buttons"
+            style="justify-content:center;">
+
+            <!-- GANTI LINK DISCORD -->
+
+            <a
+                href="https://discord.com"
+                target="_blank"
+                class="btn btn-primary">
+
+                Join Discord
+
+            </a>
+
+
+            <a
+                href="#home"
+                class="btn btn-secondary">
+
+                Kembali ke atas
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-main">
+
+
+        <div class="footer-brand">
+
+            <a href="#home" class="logo">
+                VEY<span>DRA</span>
+            </a>
+
+            <p>
+                Sebuah kota berbasis komunitas
+                yang dibangun untuk menciptakan
+                cerita bersama.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                NAVIGATION
+            </h4>
+
+            <a href="#home">
+                Beranda
+            </a>
+
+            <a href="#about">
+                Tentang
+            </a>
+
+            <a href="#rp">
+                VEYDRA RP
+            </a>
+
+            <a href="#map">
+                Kota
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                INFORMATION
+            </h4>
+
+            <a href="#news">
+                News
+            </a>
+
+            <a href="#rules">
+                Peraturan
+            </a>
+
+            <a href="#faq">
+                FAQ
+            </a>
+
+            <a href="#contact">
+                Kontak
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                COMMUNITY
+            </h4>
+
+            <!-- GANTI LINK -->
+
+            <a
+                href="https://discord.com"
+                target="_blank">
+
+                Discord
+
+            </a>
+
+            <!-- GANTI LINK -->
+
+            <a
+                href="https://youtube.com"
+                target="_blank">
+
+                YouTube
+
+            </a>
+
+            <!-- GANTI LINK -->
+
+            <a
+                href="https://tiktok.com"
+                target="_blank">
+
+                TikTok
+
+            </a>
+
+            <!-- GANTI LINK -->
+
+            <a
+                href="https://instagram.com"
+                target="_blank">
+
+                Instagram
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <div>
+            © 2026 VEYDRA. All rights reserved.
+        </div>
+
+        <div>
+            OFFICIAL VEYDRA WEBSITE
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     BACK TO TOP
+===================================================== -->
+
+<button
+    class="back-top"
+    id="backTop"
+    aria-label="Back to top">
+
+    ↑
+
+</button>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+window.addEventListener("load", function() {
+
+    setTimeout(function() {
+
+        document
+            .getElementById("loader")
+            .classList
+            .add("hidden");
+
+    }, 800);
+
+});
+
+
+/* =====================================================
+   NAVBAR SCROLL
+===================================================== */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 40) {
+
+        navbar.classList.add("scrolled");
+
+    } else {
+
+        navbar.classList.remove("scrolled");
+
+    }
+
+});
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+menuButton.addEventListener("click", function() {
+
+    navLinks.classList.toggle("open");
+
+    document.body.classList.toggle("menu-open");
+
+});
+
+
+document
+    .querySelectorAll(".nav-links a")
+    .forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            navLinks.classList.remove("open");
+
+            document.body.classList.remove("menu-open");
+
+        });
+
+    });
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const revealObserver =
+    new IntersectionObserver(
+        function(entries) {
+
+            entries.forEach(function(entry) {
+
+                if (entry.isIntersecting) {
+
+                    entry.target
+                        .classList
+                        .add("active");
+
+                    revealObserver
+                        .unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+
+revealElements.forEach(function(element) {
+
+    revealObserver.observe(element);
+
+});
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+const backTop =
+    document.getElementById("backTop");
+
+window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 500) {
+
+        backTop.classList.add("show");
+
+    } else {
+
+        backTop.classList.remove("show");
+
+    }
+
+});
+
+
+backTop.addEventListener("click", function() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+/*
+   GANTI TANGGAL DI BAWAH.
+
+   Format:
+   YYYY-MM-DDTHH:MM:SS
+
+   Contoh:
+   2026-10-01T19:00:00
+*/
+
+const openingDate =
+    new Date("2026-10-01T19:00:00").getTime();
+
+
+function updateCountdown() {
+
+    const now =
+        new Date().getTime();
+
+    const distance =
+        openingDate - now;
+
+
+    if (distance <= 0) {
+
+        document.getElementById("days")
+            .textContent = "00";
+
+        document.getElementById("hours")
+            .textContent = "00";
+
+        document.getElementById("minutes")
+            .textContent = "00";
+
+        document.getElementById("seconds")
+            .textContent = "00";
+
+        return;
+
+    }
+
+
+    const days =
+        Math.floor(
+            distance /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const hours =
+        Math.floor(
+            (distance %
+            (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+
+
+    const minutes =
+        Math.floor(
+            (distance %
+            (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+
+    const seconds =
+        Math.floor(
+            (distance %
+            (1000 * 60)) /
+            1000
+        );
+
+
+    document.getElementById("days")
+        .textContent =
+        String(days).padStart(2, "0");
+
+
+    document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2, "0");
+
+
+    document.getElementById("minutes")
+        .textContent =
+        String(minutes).padStart(2, "0");
+
+
+    document.getElementById("seconds")
+        .textContent =
+        String(seconds).padStart(2, "0");
+
+}
+
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+</script>
+
+
+</body>
+</html>
